@@ -1,0 +1,104 @@
+﻿@model BootcampBeanery.Models.Customer
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        //When the document loads, run this
+        $(document).ready(function() {
+
+            //set up validation on my numberForm
+            $("#numberForm").validate({
+                wrapper: "div",
+                rules: {
+                    //requirements for each named element
+                    'Number1': {
+                        required: true, //required
+                        min: 0 // cannot be negative
+                    },
+                    'Y': {
+                        required: true, //required
+                        min: 0 // cannot be negative
+                    },
+                    'Name': {
+                        required: true,
+                        minLength: 3 //must be at least 3 characters
+                    },
+                    'Email': {
+                        required: true,
+                        email: true
+                    }
+                },
+                messages: {
+                    //configure messages when error condition tripped.
+                    'Number1': {
+                        required: "Number 1 is required",
+                        min: "Number 1 cannot be negative"
+                    },
+                    'Y': {
+                        required: "Y is required",
+                        min: "Y cannot be negative"
+                    },
+                    'Name': {
+                        required: "Name is required",
+                        minLength: "Must be at least 3 characters"
+                    },
+                    'Email': {
+                        required: "Please provide an email address",
+                        email: "Email is not in a valid format"
+                    }
+                }
+            });
+
+        });
+    </script>
+}
+
+
+
+
+    <div class="form-horizontal">
+        <h4>Customer</h4>
+        <hr />
+        @Html.ValidationSummary(true, "name", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" >
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } } )
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
